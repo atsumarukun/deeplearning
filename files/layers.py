@@ -42,6 +42,7 @@ class Convolution:
 
         col = im2col(x, (FH, FW), self.stride, self.pad)
         col_W = self.W.reshape(FN, -1).T
+        
         out = np.dot(col, col_W) + self.b
 
         self.x = x
@@ -100,6 +101,21 @@ class SoftmaxWithLoss:
             dx = self.y.copy()
             dx[np.arange(self.t.shape[0]), self.t] -= 1
             return dx / self.t.shape[0]
+
+class Dropout:
+    def __init__(self, ratio=0.5):
+        self.ratio = ratio
+        self.mask = None
+
+    def forward(self, x, flag=True):
+        if flag:
+            self.mask = np.random.rand(*x.shape) > self.ratio
+            return x * self.mask
+        else:
+            return x * (1.0 - self.ratio)
+
+    def backward(self, dx):
+        return dx * self.mask
 
 class Pooling:
     def __init__(self, pool_size, stride=2, pad=0):

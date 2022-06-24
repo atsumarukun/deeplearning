@@ -6,7 +6,7 @@ from optmizers import *
 from mnist import load_mnist
 
 (x_train, t_train), (x_test, t_test) = load_mnist(flatten=False)
-network = ThLCAANet()
+network = FoLCCAANet()
 optmizer = AdaGrad()
 
 for _ in tqdm(range(10000)):
