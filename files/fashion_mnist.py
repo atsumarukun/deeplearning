@@ -36,5 +36,7 @@ def verification():
 
 try:
     eval(f"{sys.argv[1]}()")
-except:
-    print("No such argument")
+except NameError:
+    print("No such argument.")
+except KeyboardInterrupt:
+    print("Interrupts learning.")
