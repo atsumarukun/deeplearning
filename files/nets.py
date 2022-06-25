@@ -72,7 +72,7 @@ class ThLCAANet(BaseNet):
         self.layers["Conv1"] = Convolution(self.params["W1"], self.params["b1"], conv_params["stride"], conv_params["pad"])
         self.layers["ReLU1"] = ReLU()
         self.layers["Pool1"] = Pooling((2, 2), 2, 0)
-        self.layers["Dropout"] = Dropout(0.25)
+        self.layers["Dropout"] = Dropout(0.3)
         self.layers["Affine1"] = Affine(self.params["W2"], self.params["b2"])
         self.layers["ReLU2"] = ReLU()
         self.layers["Affine2"] = Affine(self.params["W3"], self.params["b3"])

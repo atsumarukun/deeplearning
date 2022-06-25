@@ -7,11 +7,12 @@ from optmizers import *
 from mnist import load_mnist
 
 (x_train, t_train), (x_test, t_test) = load_mnist(flatten=False)
-network = MyNet()
+params={"filter_num": 64, "filter_size": 3, "stride": 1, "pad": 2}
+network = ThLCAANet(conv_params=params)
 optmizer = Adam()
-# network = pickle5.load(open("/files/test.pkl", "rb"))
+# network = pickle5.load(open("/files/fashion_mnist.pkl", "rb"))
 
-for _ in tqdm(range(10000)):
+for i in tqdm(range(10000)):
     bach_mask = np.random.choice(x_train.shape[0], 100)
     x_bach = x_train[bach_mask]
     t_bach = t_train[bach_mask]
@@ -20,5 +21,9 @@ for _ in tqdm(range(10000)):
 
     network.params = optmizer.update(network.params, grad)
 
-# print(network.accuracy(x_test, t_test))
+    if not i % 1000:
+        print(network.accuracy(x_train[:1000], t_train[:1000]))
+        print(network.accuracy(x_test, t_test))
 pickle5.dump(network, open("/files/fashion_mnist.pkl", "wb"))
+
+print(network.accuracy(x_test, t_test))
