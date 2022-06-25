@@ -1,7 +1,12 @@
 ### Fashion Mnist
 
-- fashion_mnist.py
-- Accuracy: 0.90
+#### 実行方法
+```
+python3 fashion_mnist.py "実行引数"
+```
+- 実行ファイル:&ensp;fashion_mnist.py
+- 実行引数:&ensp;learn(学習) or verification(検証)
+- Accuracy:&ensp;0.90
 <br></br>
 
 ### 学習済みパラメータ
@@ -22,7 +27,7 @@ docker-compose up -d
 #### pythonファイルの実行
 
 ```
-docker-compose exec deeplearning python3 "file name"
+docker-compose exec deeplearning "実行コマンド"
 ```
 
 #### containerに入る
