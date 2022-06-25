@@ -34,11 +34,15 @@ def verification():
     network = pickle5.load(open("/files/params/fashion_mnist.pkl", "rb"))
     print(f"Test accuracy: {network.accuracy(x_test, t_test)}")
 
-try:
-    eval(f"{sys.argv[1]}()")
-except NameError:
-    print("No such argument.")
-except KeyboardInterrupt:
-    print("Interrupts learning.")
-except IndexError:
-    learn()
+def main():
+    try:
+        eval(f"{sys.argv[1]}()")
+    except NameError:
+        print("No such argument.")
+    except KeyboardInterrupt:
+        print("Interrupts learning.")
+    except IndexError:
+        learn()
+
+if __name__ == "__main__":
+    main()
