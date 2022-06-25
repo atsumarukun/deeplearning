@@ -40,3 +40,5 @@ except NameError:
     print("No such argument.")
 except KeyboardInterrupt:
     print("Interrupts learning.")
+except IndexError:
+    learn()
