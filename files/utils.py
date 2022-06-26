@@ -1,4 +1,29 @@
 import numpy as np
+import gzip
+
+def _load_img(file_path):
+    with gzip.open(file_path, mode="rb") as f:
+        imgs = np.frombuffer(f.read(), dtype=np.uint8, offset=16)
+    return imgs.reshape(-1, 784)
+
+def _load_label(file_path):
+    with gzip.open(file_path, mode="rb") as f:
+        labels = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
+    return labels
+
+def load_mnist(path, flatten=False):
+    dataset = {
+            "train_img": _load_img(f"{path}/train-images-idx3-ubyte.gz"),
+            "train_label": _load_label(f"{path}/train-labels-idx1-ubyte.gz"),
+            "test_img": _load_img(f"{path}/t10k-images-idx3-ubyte.gz"),
+            "test_label": _load_label(f"{path}/t10k-labels-idx1-ubyte.gz")
+            }
+
+    if not flatten:
+        for key in ("train_img", "test_img"):
+            dataset[key] = dataset[key].reshape(-1, 1, 28, 28)
+
+    return (dataset["train_img"], dataset["train_label"]), (dataset["test_img"], dataset["test_label"])
 
 def im2col(data, filter_size, stride=1, pad=0):
     N, C, H, W = data.shape

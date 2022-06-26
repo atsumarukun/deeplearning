@@ -4,9 +4,11 @@ import pickle5
 
 from nets import *
 from optmizers import *
-from mnist import load_mnist
+from utils import load_mnist
 
-(x_train, t_train), (x_test, t_test) = load_mnist(flatten=False)
+(x_train, t_train), (x_test, t_test) = load_mnist("dataset/fashion_mnist/")
+print(x_train.shape)
+print(t_train.shape)
 params={"filter_num": 64, "filter_size": 3, "stride": 1, "pad": 2}
 network = ThLCAANet(conv_params=params)
 optmizer = Adam()
