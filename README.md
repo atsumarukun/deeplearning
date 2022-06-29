@@ -6,7 +6,7 @@ python3 fashion_mnist.py "実行引数"
 ```
 - 実行ファイル:&ensp;fashion_mnist.py
 - 実行引数:&ensp;learn(学習) or verification(検証)
-- Accuracy:&ensp;0.90
+- Accuracy:&ensp;0.9024
 <br></br>
 
 ### 学習済みパラメータ

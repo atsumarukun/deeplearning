@@ -1,19 +1,21 @@
 import numpy as np
 import pickle5
 import sys
+from tqdm import tqdm
 
-from nets import *
-from optmizers import *
-from mnist import load_mnist
+from packages.nets import *
+from packages.optmizers import *
+from packages.utils import load_mnist
 
-(x_train, t_train), (x_test, t_test) = load_mnist(flatten=False)
+(x_train, t_train), (x_test, t_test) = load_mnist("dataset/fashion_mnist/", normalize=True, one_hot_label=True)
 optmizer = Adam()
 
 def learn():
-    params = {"filter_num": 64, "filter_size": 3, "stride": 1, "pad": 2}
-    network = ThLCAANet(conv_params=params)
+    params = {"filter_num": 32, "filter_size":3, "stride": 1, "pad": 2}
+    network = FashionMnistNet(conv_params=params, hidden_size=200)
+    # network = TwLANet(hidden_size=200)
 
-    for i in range(10000):
+    for i in tqdm(range(10000)):
         bach_mask = np.random.choice(x_train.shape[0], 100)
         x_bach = x_train[bach_mask]
         t_bach = t_train[bach_mask]
@@ -22,16 +24,14 @@ def learn():
         network.params = optmizer.update(network.params, grad)
 
         if not i % 1000:
-            print(i // 1000)
-            print(f"Train accuracy: {network.accuracy(x_train[:1000], t_train[:1000])}")
-            print(f"Test accuracy: {network.accuracy(x_test, t_test)}")
-            print()
+            print(f"[{i // 1000}] Train accuracy: {network.accuracy(x_train[:1000], t_train[:1000])}, Test accuracy: {network.accuracy(x_test, t_test)}")
 
     print(f"Test accuracy: {network.accuracy(x_test, t_test)}")
     pickle5.dump(network, open("/files/params/fashion_mnist.pkl", "wb"))
 
 def verification():
-    network = pickle5.load(open("/files/params/fashion_mnist.pkl", "rb"))
+    with open("/files/params/fashion_mnist.pkl", "rb") as f:
+        network = pickle5.load(f)
     print(f"Test accuracy: {network.accuracy(x_test, t_test)}")
 
 def main():

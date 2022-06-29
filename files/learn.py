@@ -2,9 +2,9 @@ import numpy as np
 from tqdm import tqdm
 import pickle5
 
-from nets import *
-from optmizers import *
-from utils import load_mnist
+from packages.nets import *
+from packages.optmizers import *
+from packages.utils import load_mnist
 
 (x_train, t_train), (x_test, t_test) = load_mnist("dataset/fashion_mnist/")
 print(x_train.shape)
