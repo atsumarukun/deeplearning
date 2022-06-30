@@ -7,13 +7,13 @@ from packages.nets import *
 from packages.optmizers import *
 from packages.utils import load_mnist
 
-(x_train, t_train), (x_test, t_test) = load_mnist("dataset/fashion_mnist/", normalize=True, one_hot_label=True)
+(x_train, t_train), (x_test, t_test) = load_mnist("dataset/fashion_mnist/")
 optmizer = Adam()
 
 def learn():
-    params = {"filter_num": 32, "filter_size":3, "stride": 1, "pad": 2}
-    network = FashionMnistNet(conv_params=params, hidden_size=200)
-    # network = TwLANet(hidden_size=200)
+    # params = {"filter_num": 32, "filter_size":3, "stride": 1, "pad": 2}
+    # network = FashionMnistNet(conv_params=params, hidden_size=200)
+    network = ThLANet(hidden_size1=200, hidden_size2=50)
 
     for i in tqdm(range(10000)):
         bach_mask = np.random.choice(x_train.shape[0], 100)
