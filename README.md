@@ -16,6 +16,11 @@ python3 fashion_mnist.py "実行引数"
 &emsp;&emsp;&ensp;※pklファイルをfiles/params/ディレクトリに保存して下さい。
 <br></br>
 
+### 正答率の変動
+
+- https://drive.google.com/drive/folders/1RcxULMkVJK7ZrlN4LdxW8Y7qPhJkjIVl?usp=sharing
+<br></br>
+
 ### 利用方法
 
 #### containerの起動
